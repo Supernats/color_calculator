@@ -42,23 +42,29 @@ module ColorCalculator
 
       attr_reader :rgb
 
-      def transformed_3_by_1
-        RGB_TO_XYZ_TRANSFORM_D50.map do |row|
-          [0, 1, 2].map do |index|
-            row[index] * [red, green, blue][index]
-          end.inject(:+)
-        end
+      def transformed_rgb
+        Hash[
+          [:red, :green, :blue].zip(
+            RGB_TO_XYZ_TRANSFORM_D50.map do |row|
+              %i[red green blue].map.with_index do |rgb, index|
+                row[index] * energetically_linear_rgb[rgb]
+              end.inject(:+)
+            end
+          )
+        ]
       end
 
-      %i[red green blue].each do |message|
-        define_method(message) do
-          FRUIT.call(rgb.public_send(message))
-        end
+      def energetically_linear_rgb
+        Hash[
+          %i[red green blue].map do |color|
+            [color, FRUIT.call(rgb.public_send(color))]
+          end
+        ]
       end
 
-      [[:x, :red], [:y, :green], [:z, :blue]].each.with_index do |tuple, index|
-        define_method(tuple[0]) do
-          transformed_3_by_1[index]
+      (%i[x y z].zip(%i[red green blue])).each do |xyz, rgb|
+        define_method(xyz) do
+          transformed_rgb[rgb]
         end
       end
     end

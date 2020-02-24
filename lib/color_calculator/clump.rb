@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+require_relative 'clump/lab'
 require_relative 'clump/rgb'
 require_relative 'clump/xyz'
 

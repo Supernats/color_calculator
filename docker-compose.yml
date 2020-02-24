@@ -1,0 +1,19 @@
+---
+version: '3.7'
+
+services:
+  dev:
+    build: .
+    volumes:
+      - .:/color_calculation:ro,cached
+    command: /bin/bash
+    tty: true
+    stdin_open: true
+
+  test:
+    build: .
+    volumes:
+      - .:/color_calculation:ro,cached
+    command: rake test
+    tty: true
+    stdin_open: true

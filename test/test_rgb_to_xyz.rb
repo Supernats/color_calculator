@@ -10,7 +10,8 @@ class TestRgbToXyz < Minitest::Test
     [
       [[0, 0, 0], [0, 0, 0]],
       [[255, 255, 255], [0.964220, 1.000000, 0.825210]],
-      [[127, 127, 127], [0.204637, 0.212231, 0.175135]]
+      [[127, 127, 127], [0.204637, 0.212231, 0.175135]],
+      [[76, 229, 102], [0.352240, 0.585836, 0.171983]]
     ].each do |rgb, xyz|
       input = ColorCalculator::Clump::Rgb.new(*rgb, normalized: false)
       expected = ColorCalculator::Clump::Xyz.new(*xyz)
@@ -22,7 +23,7 @@ class TestRgbToXyz < Minitest::Test
           result.public_send(message),
           0.0001,
           <<~ERROR
-            Failed with sRGB input #{rgb}
+            Failed with RGB input #{rgb}
           ERROR
         )
       end
@@ -33,7 +34,8 @@ class TestRgbToXyz < Minitest::Test
     [
       [[0, 0, 0], [0, 0, 0]],
       [[1, 1, 1], [0.964220, 1.000000, 0.825210]],
-      [[0.5, 0.5, 0.5], [0.206383, 0.214041, 0.176629]]
+      [[0.5, 0.5, 0.5], [0.206383, 0.214041, 0.176629]],
+      [[0.2, 0.4, 0.6], [0.111177, 0.121926, 0.240861]]
     ].each do |rgb, xyz|
       input = ColorCalculator::Clump::Rgb.new(*rgb, normalized: true)
       expected = ColorCalculator::Clump::Xyz.new(*xyz)
@@ -45,7 +47,7 @@ class TestRgbToXyz < Minitest::Test
           result.public_send(message),
           0.0001,
           <<~ERROR
-            Failed with sRGB input #{rgb}
+            Failed with RGB input #{rgb}
           ERROR
         )
       end

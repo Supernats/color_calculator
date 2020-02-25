@@ -2,9 +2,6 @@
 
 require 'helper'
 
-require 'color_calculator/clump'
-require 'color_calculator/conversion'
-
 class TestXyzToLab < Minitest::Test
   def test_xyz_to_lab
     [

@@ -2,9 +2,6 @@
 
 require 'helper'
 
-require 'color_calculator/clump'
-require 'color_calculator/conversion'
-
 class TestRgbToXyz < Minitest::Test
   def test_scaled
     [

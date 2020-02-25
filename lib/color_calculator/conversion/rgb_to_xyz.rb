@@ -1,8 +1,5 @@
 # frozen_string_literal: true
 
-require 'color_calculator/clump/rgb'
-require 'color_calculator/clump/xyz'
-
 module ColorCalculator
   module Conversion
     class RgbToXyz

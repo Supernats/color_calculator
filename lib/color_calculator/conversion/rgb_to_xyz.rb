@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
+require 'color_calculator/clump/rgb'
+require 'color_calculator/clump/xyz'
+require 'color_calculator/shared/composable'
+
 module ColorCalculator
   module Conversion
     class RgbToXyz
-      class << self
-        def call(*args)
-          new(*args).call
-        end
-      end
+      extend ColorCalculator::Composable
 
       def initialize(rgb)
         @rgb = rgb

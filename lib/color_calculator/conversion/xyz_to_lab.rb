@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
+require 'color_calculator/clump/lab'
+require 'color_calculator/clump/xyz'
+require 'color_calculator/shared/composable'
+
 module ColorCalculator
   module Conversion
     class XyzToLab
-      class << self
-        def call(args)
-          new(args).call
-        end
-      end
+      extend ColorCalculator::Composable
 
       D50 = { x: 0.964220, y: 1.000000, z: 0.825210 }
       EPSILON = 0.008856

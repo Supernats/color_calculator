@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
+require 'color_calculator/clump/lab'
+require 'color_calculator/clump/lch_ab'
+require 'color_calculator/shared/composable'
+
 module ColorCalculator
   module Conversion
     class LabToLchAb
-      class << self
-        def call(args)
-          new(args).call
-        end
-      end
+      extend ColorCalculator::Composable
 
       RADIANS_TO_DEGREES = 180 / Math::PI
 

@@ -1,15 +1,15 @@
 # frozen_string_literal: true
 
+require_relative 'abstract'
+
 module ColorCalculator
   module Clump
-    class Lab
-      def initialize(lightness, alpha, beta)
-        @lightness = lightness
-        @alpha = alpha
-        @beta = beta
+    class Lab < Abstract
+      class << self
+        def attributes
+          %i[lightness alpha beta]
+        end
       end
-
-      attr_reader :lightness, :alpha, :beta
     end
   end
 end

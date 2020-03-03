@@ -1,12 +1,18 @@
 # frozen_string_literal: true
 
+require_relative 'abstract'
+
 module ColorCalculator
   module Clump
-    class Rgb
-      def initialize(red, green, blue, normalized:)
-        @red = red
-        @green = green
-        @blue = blue
+    class Rgb < Abstract
+      class << self
+        def attributes
+          %i[red green blue]
+        end
+      end
+
+      def initialize(*attributes, normalized:)
+        @red, @green, @blue = attributes
         @normalized = normalized
       end
 
@@ -16,9 +22,9 @@ module ColorCalculator
         end
       end
 
-      attr_reader :normalized
-
       private
+
+      attr_reader :normalized
 
       def scale
         normalized ? 1 : 255

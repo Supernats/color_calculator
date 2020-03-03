@@ -1,15 +1,15 @@
 # frozen_string_literal: true
 
+require_relative 'abstract'
+
 module ColorCalculator
   module Clump
-    class LchAb
-      def initialize(lightness, chroma, hue)
-        @lightness = lightness
-        @chroma = chroma
-        @hue = hue
+    class LchAb < Abstract
+      class << self
+        def attributes
+          %i[lightness chroma hue]
+        end
       end
-
-      attr_reader :lightness, :chroma, :hue
     end
   end
 end

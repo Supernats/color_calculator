@@ -42,7 +42,7 @@ class TestDeltaE2000 < Minitest::Test
   ]
 
   DATA.each do |a, b, difference|
-    name = ["test", SecureRandom.uuid.delete("-")].join("_")
+    name = ['test', SecureRandom.uuid.delete('-')].join('_')
 
     define_method(name) do
       sample = ColorCalculator::Clump::Lab.new(*b)

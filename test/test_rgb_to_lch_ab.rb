@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'helper'
+require 'securerandom'
 
 class TestRgbToLchAb < Minitest::Test
   DATA_SCALED = [
@@ -9,8 +10,10 @@ class TestRgbToLchAb < Minitest::Test
     [[60, 230, 123], [81.2545, 72.9983, 147.5489]],
   ]
 
-  def test_as_a_class
-    DATA_SCALED.each do |rgb, lch_ab|
+  DATA_SCALED.each do |rgb, lch_ab|
+    name = ['test_as_a_class', SecureRandom.uuid.delete('-')].join('_')
+
+    define_method(name) do
       input = ColorCalculator::Clump::Rgb.new(*rgb, normalized: false)
       expected = ColorCalculator::Clump::LchAb.new(*lch_ab)
       result = ColorCalculator::Conversion::RgbToLchAb.call(input)
@@ -28,12 +31,10 @@ class TestRgbToLchAb < Minitest::Test
     end
   end
 
-  def test_that_it_can_be_a_proc
-    assert_kind_of Proc, ColorCalculator::Conversion::RgbToLchAb.to_proc
-  end
+  DATA_SCALED.each do |rgb, lch_ab|
+    name = ['test_as_a_proc', SecureRandom.uuid.delete('-')].join('_')
 
-  def test_as_a_proc
-    DATA_SCALED.each do |rgb, lch_ab|
+    define_method(name) do
       input = ColorCalculator::Clump::Rgb.new(*rgb, normalized: false)
       expected = ColorCalculator::Clump::LchAb.new(*lch_ab)
       result = ColorCalculator::Conversion::RgbToLchAb.to_proc.call(input)
@@ -50,4 +51,8 @@ class TestRgbToLchAb < Minitest::Test
       end
     end
   end
+
+   def test_that_it_can_be_a_proc
+     assert_kind_of Proc, ColorCalculator::Conversion::RgbToLchAb.to_proc
+   end
 end

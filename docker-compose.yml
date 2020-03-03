@@ -5,7 +5,7 @@ services:
   dev:
     build: .
     volumes:
-      - .:/color_calculation:ro,cached
+      - .:/color_calculation:cached
     command: /bin/bash
     tty: true
     stdin_open: true

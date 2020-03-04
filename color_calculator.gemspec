@@ -1,3 +1,5 @@
+require_relative 'lib/color_calculator/version'
+
 Gem::Specification.new do |gem|
   gem.authors = ['Nathan Seither']
   gem.email = ['nathanseither@gmail.com']
@@ -7,6 +9,6 @@ Gem::Specification.new do |gem|
   gem.license = 'MIT'
   gem.files = Dir['lib/**/**.rb', 'Gemfile', 'Rakefile']
   gem.name = 'color_calculator'
-  gem.version = '0.0.1'
+  gem.version = ColorCalculator::VERSION
   gem.required_ruby_version = '>= 2.6.0'
 end

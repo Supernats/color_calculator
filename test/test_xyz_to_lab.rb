@@ -3,6 +3,10 @@
 require 'helper'
 require 'securerandom'
 
+require_relative '../lib/color_calculator/clump/xyz'
+require_relative '../lib/color_calculator/clump/lab'
+require_relative '../lib/color_calculator/conversion/xyz_to_lab'
+
 class TestXyzToLab < Minitest::Test
   DATA = [
     [[0, 0, 0], [0, 0, 0]],

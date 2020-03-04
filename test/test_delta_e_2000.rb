@@ -3,6 +3,9 @@
 require 'helper'
 require 'securerandom'
 
+require_relative '../lib/color_calculator/clump/lab'
+require_relative '../lib/color_calculator/calculation/delta_e_2000'
+
 class TestDeltaE2000 < Minitest::Test
   DATA = [
     [[0, 0, 0], [0, 0, 0], 0],

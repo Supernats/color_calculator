@@ -3,6 +3,10 @@
 require 'helper'
 require 'securerandom'
 
+require_relative '../lib/color_calculator/clump/rgb'
+require_relative '../lib/color_calculator/clump/lch_ab'
+require_relative '../lib/color_calculator/conversion/rgb_to_lch_ab'
+
 class TestRgbToLchAb < Minitest::Test
   DATA_SCALED = [
     [[0, 0, 0], [0, 0, 0]],

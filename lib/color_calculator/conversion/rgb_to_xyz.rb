@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require 'color_calculator/clump/rgb'
-require 'color_calculator/clump/xyz'
-require 'color_calculator/shared/composable'
+require_relative '../clump/rgb'
+require_relative '../clump/xyz'
+require_relative '../shared/composable'
 
 module ColorCalculator
   module Conversion

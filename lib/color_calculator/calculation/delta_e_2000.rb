@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'color_calculator/clump/lab'
+require_relative '../clump/lab'
 
 module ColorCalculator
   module Calculation

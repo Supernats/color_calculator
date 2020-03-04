@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 
-require 'color_calculator/shared/composable'
+require_relative '../shared/composable'
+require_relative '../conversion/rgb_to_xyz'
+require_relative '../conversion/xyz_to_lab'
+require_relative '../conversion/lab_to_lch_ab'
 
 module ColorCalculator
   module Conversion

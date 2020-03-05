@@ -3,11 +3,11 @@
 require_relative '../shared/composable'
 require_relative '../conversion/rgb_to_xyz'
 require_relative '../conversion/xyz_to_lab'
-require_relative '../conversion/lab_to_lch_ab'
+require_relative '../conversion/lab_to_lch'
 
 module ColorCalculator
   module Conversion
-    class RgbToLchAb
+    class RgbToLch
       extend ColorCalculator::Composable
 
       def initialize(rgb)
@@ -30,7 +30,7 @@ module ColorCalculator
         [
           ColorCalculator::Conversion::RgbToXyz,
           ColorCalculator::Conversion::XyzToLab,
-          ColorCalculator::Conversion::LabToLchAb
+          ColorCalculator::Conversion::LabToLch
         ]
       end
     end

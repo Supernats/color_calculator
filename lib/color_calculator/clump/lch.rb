@@ -4,7 +4,7 @@ require_relative 'abstract'
 
 module ColorCalculator
   module Clump
-    class LchAb < Abstract
+    class Lch < Abstract
       class << self
         def attributes
           %i[lightness chroma hue]

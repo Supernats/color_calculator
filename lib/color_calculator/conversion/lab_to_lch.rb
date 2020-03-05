@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
 require_relative '../clump/lab'
-require_relative '../clump/lch_ab'
+require_relative '../clump/lch'
 require_relative '../shared/composable'
 
 module ColorCalculator
   module Conversion
-    class LabToLchAb
+    class LabToLch
       extend ColorCalculator::Composable
 
       RADIANS_TO_DEGREES = 180 / Math::PI
@@ -16,7 +16,7 @@ module ColorCalculator
       end
 
       def call
-        ColorCalculator::Clump::LchAb.new(lightness, chroma, hue)
+        ColorCalculator::Clump::Lch.new(lightness, chroma, hue)
       end
 
       private

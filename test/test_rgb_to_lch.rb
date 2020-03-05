@@ -1,11 +1,12 @@
 # frozen_string_literal: true
 
+# This is just an example of how to use a compound conversion.
 require 'helper'
 require 'securerandom'
 
 require_relative '../lib/color_calculator/clump/rgb'
 require_relative '../lib/color_calculator/clump/lch'
-require_relative '../lib/color_calculator/conversion/rgb_to_lch'
+require_relative '../lib/color_calculator/conversion'
 
 class TestRgbToLch < Minitest::Test
   DATA_SCALED = [
@@ -20,7 +21,7 @@ class TestRgbToLch < Minitest::Test
     define_method(name) do
       input = ColorCalculator::Clump::Rgb.new(*rgb, normalized: false)
       expected = ColorCalculator::Clump::Lch.new(*lch)
-      result = ColorCalculator::Conversion::RgbToLch.call(input)
+      result = ColorCalculator::Conversion.build(:rgb, :lch).call(input)
 
       [:lightness, :chroma, :hue].each do |message|
         assert_in_delta(
@@ -34,29 +35,4 @@ class TestRgbToLch < Minitest::Test
       end
     end
   end
-
-  DATA_SCALED.each do |rgb, lch|
-    name = ['test_as_a_proc', SecureRandom.uuid.delete('-')].join('_')
-
-    define_method(name) do
-      input = ColorCalculator::Clump::Rgb.new(*rgb, normalized: false)
-      expected = ColorCalculator::Clump::Lch.new(*lch)
-      result = ColorCalculator::Conversion::RgbToLch.to_proc.call(input)
-
-      [:lightness, :chroma, :hue].each do |message|
-        assert_in_delta(
-          expected.public_send(message),
-          result.public_send(message),
-          0.001,
-          <<~ERROR
-            #{message} failed with rgb input #{rgb}
-          ERROR
-        )
-      end
-    end
-  end
-
-   def test_that_it_can_be_a_proc
-     assert_kind_of Proc, ColorCalculator::Conversion::RgbToLch.to_proc
-   end
 end

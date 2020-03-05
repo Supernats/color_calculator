@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_relative '../clump/lab'
+require_relative '../shared/constants'
 
 module ColorCalculator
   module Calculation
@@ -10,9 +11,6 @@ module ColorCalculator
           new(*args).call
         end
       end
-
-      RADIANS_TO_DEGREES = 180.to_f / Math::PI
-      DEGREES_TO_RADIANS = 1.to_f / RADIANS_TO_DEGREES
 
       K_OF_L = 1
       K_OF_C = 1
@@ -65,7 +63,7 @@ module ColorCalculator
         [
           2,
           Math.sqrt(c_prime_reference * c_prime_sample),
-          Math.sin(Rational(delta_little_h_prime, 2) * DEGREES_TO_RADIANS),
+          Math.sin(Rational(delta_little_h_prime, 2) * Constants::DEGREES_TO_RADIANS),
         ].reduce(:*)
       end
 
@@ -74,7 +72,7 @@ module ColorCalculator
       end
 
       def r_of_t
-        -1 * Math.sin(2 * delta_theta * DEGREES_TO_RADIANS) * r_of_c
+        -1 * Math.sin(2 * delta_theta * Constants::DEGREES_TO_RADIANS) * r_of_c
       end
 
       %i[reference sample].each do |lab|
@@ -115,7 +113,10 @@ module ColorCalculator
         define_method("little_h_prime_#{lab}") do
           return 0 if [send(lab).beta, send("a_prime_#{lab}")].all? { |el| el == 0 }
 
-          (Math.atan2(send(lab).beta, send("a_prime_#{lab}")) * RADIANS_TO_DEGREES) % 360
+          (
+            Math.atan2(send(lab).beta, send("a_prime_#{lab}")) *
+              Constants::RADIANS_TO_DEGREES
+          ) % 360
         end
       end
 
@@ -174,10 +175,10 @@ module ColorCalculator
       def big_t
         [
           1,
-          -0.17 * Math.cos((little_h_bar_prime - 30) * DEGREES_TO_RADIANS),
-          0.24 * Math.cos(2 * little_h_bar_prime * DEGREES_TO_RADIANS),
-          0.32 * Math.cos((3 * little_h_bar_prime + 6) * DEGREES_TO_RADIANS),
-          -0.2 * Math.cos((4 * little_h_bar_prime - 63) * DEGREES_TO_RADIANS),
+          -0.17 * Math.cos((little_h_bar_prime - 30) * Constants::DEGREES_TO_RADIANS),
+          0.24 * Math.cos(2 * little_h_bar_prime * Constants::DEGREES_TO_RADIANS),
+          0.32 * Math.cos((3 * little_h_bar_prime + 6) * Constants::DEGREES_TO_RADIANS),
+          -0.2 * Math.cos((4 * little_h_bar_prime - 63) * Constants::DEGREES_TO_RADIANS),
         ].reduce(:+)
       end
 

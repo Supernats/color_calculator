@@ -3,13 +3,12 @@
 require_relative '../clump/lab'
 require_relative '../clump/lch'
 require_relative '../shared/composable'
+require_relative '../shared/constants'
 
 module ColorCalculator
   module Conversion
     class LabToLch
       extend ColorCalculator::Composable
-
-      RADIANS_TO_DEGREES = 180 / Math::PI
 
       def initialize(lab)
         @lab = lab
@@ -32,7 +31,7 @@ module ColorCalculator
       end
 
       def hue
-        val = Math.atan2(lab.beta, lab.alpha) * RADIANS_TO_DEGREES
+        val = Math.atan2(lab.beta, lab.alpha) * Constants::RADIANS_TO_DEGREES
 
         return val if val >= 0
 

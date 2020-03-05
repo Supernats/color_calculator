@@ -12,8 +12,8 @@ module ColorCalculator
   module Conversion
     NOOP = -> (value) { value }
 
-      # Doesn't seem like it's worth it to build a proper graph for this yet.
-      # This map is fine, even if it is a bit repetitive.
+    # Doesn't seem like it's worth it to build a proper graph for this yet.
+    # This map is fine, even if it is a bit repetitive.
     MAP = {
       lab: {
         lab: NOOP,

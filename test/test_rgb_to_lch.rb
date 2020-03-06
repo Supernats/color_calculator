@@ -21,7 +21,7 @@ class TestRgbToLch < Minitest::Test
     define_method(name) do
       input = ColorCalculator::Clump::Rgb.new(*rgb, normalized: false)
       expected = ColorCalculator::Clump::Lch.new(*lch)
-      result = ColorCalculator::Conversion.build(:rgb, :lch).call(input)
+      result = ColorCalculator::Conversion::Build.call(:rgb, :lch).call(input)
 
       [:lightness, :chroma, :hue].each do |message|
         assert_in_delta(

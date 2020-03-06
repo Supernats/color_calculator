@@ -3,5 +3,5 @@
 require_relative '../color_calculator'
 
 module ColorCalculator
-  VERSION = '1.2.0'
+  VERSION = '2.0.0'
 end

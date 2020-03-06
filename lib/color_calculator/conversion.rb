@@ -41,8 +41,9 @@ module ColorCalculator
       }
     }
 
-    def self.build(from, to)
+    def build(from, to)
       MAP[from][to]
     end
+    module_function :build
   end
 end

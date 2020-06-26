@@ -15,32 +15,43 @@ module ColorCalculator
 
       # Doesn't seem like it's worth it to build a proper graph for this yet.
       # This map is fine, even if it is a bit repetitive.
-      MAP = {
-        lab: {
-          lab: NOOP,
-          lch: LabToLch.to_proc,
-          rgb: [LabToXyz, XyzToRgb].map(&:to_proc).reduce(:>>),
-          xyz: LabToXyz.to_proc
-        },
-        lch: {
-          lab: LchToLab.to_proc,
-          lch: NOOP,
-          rgb: [LchToLab, LabToXyz, XyzToRgb].map(&:to_proc).reduce(:>>),
-          xyz: [LchToLab, LabToXyz].map(&:to_proc).reduce(:>>)
-        },
-        rgb: {
-          lab: [RgbToXyz, XyzToLab].map(&:to_proc).reduce(:>>),
-          lch: [RgbToXyz, XyzToLab, LabToLch].map(&:to_proc).reduce(:>>),
-          rgb: NOOP,
-          xyz: RgbToXyz.to_proc
-        },
-        xyz: {
-          lab: XyzToLab.to_proc,
-          lch: [XyzToLab, LabToLch].map(&:to_proc).reduce(:>>),
-          rgb: XyzToRgb.to_proc,
-          xyz: NOOP
-        }
-      }
+      MAP = Hash[
+        {
+          lab: {
+            lab: [NOOP],
+            lch: [LabToLch],
+            rgb: [LabToXyz, XyzToRgb],
+            xyz: [LabToXyz]
+          },
+          lch: {
+            lab: [LchToLab],
+            lch: [NOOP],
+            rgb: [LchToLab, LabToXyz, XyzToRgb],
+            xyz: [LchToLab, LabToXyz]
+          },
+          rgb: {
+            lab: [RgbToXyz, XyzToLab],
+            lch: [RgbToXyz, XyzToLab, LabToLch],
+            rgb: [NOOP],
+            xyz: [RgbToXyz],
+          },
+          xyz: {
+            lab: [XyzToLab],
+            lch: [XyzToLab, LabToLch],
+            rgb: [XyzToRgb],
+            xyz: [NOOP],
+          }
+        }.map do |top_level_key, subhash|
+          [
+            top_level_key,
+            Hash[
+              subhash.map do |subkey, callable_array|
+                [subkey, callable_array.map(&:to_proc).reduce(:>>)]
+              end
+            ]
+          ]
+        end
+      ]
 
       class << self
         def call(from, to)
